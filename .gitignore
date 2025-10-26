@@ -1,0 +1,19 @@
+# Python/venv
+.venv/
+venv/
+__pycache__/
+
+# OS / editor
+.DS_Store
+*.log
+
+# SQLite databases
+*.sqlite
+*.db
+
+# Data
+data/raw/
+data/mapped/
+
+# VSCode settings
+.vscode/

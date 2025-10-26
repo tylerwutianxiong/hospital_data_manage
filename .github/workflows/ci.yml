@@ -1,0 +1,21 @@
+name: SQLite CI
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install sqlite3
+        run: sudo apt-get update && sudo apt-get install -y sqlite3
+      - name: Run migrations
+        run: |
+          sqlite3 db.sqlite < db/scripts/import.sql
+      - name: Check objects created
+        run: |
+          sqlite3 db.sqlite "PRAGMA foreign_keys=ON; SELECT name, type FROM sqlite_master WHERE type IN ('table','index') ORDER BY name;"
